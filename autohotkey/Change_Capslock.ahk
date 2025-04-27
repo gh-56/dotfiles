@@ -1,0 +1,2 @@
+﻿Capslock::Ctrl
+RAlt::Capslock
