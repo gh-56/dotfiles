@@ -36,6 +36,11 @@ keymap('n', '<leader>gr', "<cmd>lua require('vscode').action('editor.action.goTo
 keymap('n', '<leader>gi', "<cmd>lua require('vscode').action('editor.action.goToImplementation')<CR>", opts) -- goToImple
 keymap('n', '<leader>ff', "<cmd>lua require('vscode').action('workbench.action.findInFiles')<CR>", opts) -- find in files
 keymap('n', '<leader>gg', "<cmd>lua require('vscode').action('workbench.view.scm')<CR>", opts) -- 깃허브
+keymap('n', '<leader>xx', "<cmd>lua require('vscode').action('workbench.view.extensions')<CR>", opts) -- 확장
+keymap('n', '<leader>ee', "<cmd>lua require('vscode').action('workbench.view.explorer')<CR>", opts) -- 탐색기
+keymap('n', '<leader>sj', "<cmd>lua require('vscode').action('workbench.action.openSettingsJson')<CR>", opts) -- settings json
+keymap('n', '<leader>ks', "<cmd>lua require('vscode').action('workbench.action.openGlobalKeybindings')<CR>", opts) -- 바로가기
+keymap('n', '<leader>rw', "<cmd>lua require('vscode').action('workbench.action.reloadWindow')<CR>", opts) -- 창 다시로드
 
 -- Insert 모드 매핑 예시
 -- jk로 Insert 모드 탈출 (선택 사항)
