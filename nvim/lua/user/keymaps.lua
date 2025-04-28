@@ -5,33 +5,37 @@ local opts = { noremap = true, silent = true } -- 기본 옵션: 재귀 금지, 
 
 -- 모드 약자: 'n'(Normal), 'i'(Insert), 'v'(Visual), 'x'(Visual Block), 't'(Terminal), 'o'(Operator-pending)
 
--- Insert 모드에서 Ctrl+Space를 눌렀을 때 VS Code의 'Trigger Suggest' 명령 호출
-keymap('i', '<C-Space>', function()
-  -- VSCodeCall: VS Code 명령을 호출하고 결과가 필요할 때 사용 (여기선 Notify도 가능)
-  -- 'editor.action.triggerSuggest': VS Code의 빠른 제안 창 트리거 명령어 ID
-  vim.fn.VSCodeCall('editor.action.triggerSuggest')
-  -- 또는 vim.fn.VSCodeNotify('editor.action.triggerSuggest') -- 반환값이 필요 없으므로 Notify가 더 적합할 수 있음
-end, { noremap = true, silent = true, desc = "Trigger VS Code Suggest" })
-
--- 필요하다면 Normal 모드에서도 설정할 수 있습니다.
--- map('n', '<C-Space>', function()
---   vim.fn.VSCodeCall('editor.action.triggerSuggest')
--- end, { noremap = true, silent = true, desc = "Trigger VS Code Suggest" })
-
 -- Normal 모드 매핑 예시
--- 창 분할 이동 (Ctrl+hjkl)
-keymap('n', '<C-h>', '<C-w>h', opts)
-keymap('n', '<C-j>', '<C-w>j', opts)
-keymap('n', '<C-k>', '<C-w>k', opts)
-keymap('n', '<C-l>', '<C-w>l', opts)
-
+-- 복사
+keymap('v', '<C-c>', '"+y', opts)
 
 -- Ctrl+Tab (앞으로 순환) 기능을 <leader><Tab> 에 매핑
-keymap('n', '<leader><Tab>', "<cmd>lua require('vscode').action('workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup')<CR>", vim.tbl_extend('force', opts, { desc = "VSCode Prev Editor History" }))
+keymap('n', '<Tab>', "<cmd>lua require('vscode').action('workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup')<CR>", vim.tbl_extend('force', opts, { desc = "VSCode Prev Editor History" }))
 -- Ctrl+Shift+Tab (뒤로 순환) 기능을 <leader><S-Tab> 에 매핑
-keymap('n', '<leader><S-Tab>', "<cmd>lua require('vscode').action('workbench.action.quickOpenLeastRecentlyUsedEditorInGroup')<CR>", vim.tbl_extend('force', opts, { desc = "VSCode Next Editor History" }))
+keymap('n', '<S-Tab>', "<cmd>lua require('vscode').action('workbench.action.quickOpenLeastRecentlyUsedEditorInGroup')<CR>", vim.tbl_extend('force', opts, { desc = "VSCode Next Editor History" }))
 -- 빠른 저장
 keymap('n', '<leader>w', ':w<CR>', opts) -- Leader + w : 저장
+
+-- 화면 분할
+keymap('n', '<leader>sh', "<cmd>lua require('vscode').action('workbench.action.splitEditor')<CR>", opts) -- 세로 분할
+keymap('n', '<leader>sv', "<cmd>lua require('vscode').action('workbench.action.splitEditorDown')<CR>", opts) -- 가로 분할
+
+-- 새 폴더 열기
+keymap('n', '<leader>of', "<cmd>lua require('vscode').action('workbench.action.files.openFolder')<CR>", opts) -- open folder
+
+-- 코딩
+keymap('n', '<leader>,', "<cmd>lua require('vscode').action('workbench.action.showAllEditors')<CR>", opts) -- 파일 열기
+keymap('n', '<leader>ca', "<cmd>lua require('vscode').action('editor.action.codeAction')<CR>", opts) -- code action
+keymap('n', '<leader>cr', "<cmd>lua require('vscode').action('editor.action.rename')<CR>", opts) -- rename
+keymap('n', '<leader>cs', "<cmd>lua require('vscode').action('workbench.action.gotoSymbol')<CR>", opts) -- go to symbol
+keymap('n', '<leader>qq', "<cmd>lua require('vscode').action('workbench.action.closeActiveEditor')<CR>", opts) -- close Active Editors
+keymap('n', '<leader>qo', "<cmd>lua require('vscode').action('workbench.action.closeOtherEditors')<CR>", opts) -- close Other Editors
+keymap('n', '<leader><leader>', "<cmd>lua require('vscode').action('workbench.action.quickOpen')<CR>", opts) -- quick open
+keymap('n', '<leader>gd', "<cmd>lua require('vscode').action('editor.action.revealDefinition')<CR>", opts) -- revealDefinition
+keymap('n', '<leader>gr', "<cmd>lua require('vscode').action('editor.action.goToReferences')<CR>", opts) -- goToReferences
+keymap('n', '<leader>gi', "<cmd>lua require('vscode').action('editor.action.goToImplementation')<CR>", opts) -- goToImple
+keymap('n', '<leader>ff', "<cmd>lua require('vscode').action('workbench.action.findInFiles')<CR>", opts) -- find in files
+keymap('n', '<leader>gg', "<cmd>lua require('vscode').action('workbench.view.scm')<CR>", opts) -- 깃허브
 
 -- Insert 모드 매핑 예시
 -- jk로 Insert 모드 탈출 (선택 사항)
